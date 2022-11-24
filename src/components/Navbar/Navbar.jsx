@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import { Box, Flex, HStack, Link, IconButton, useDisclosure, useColorModeValue, Stack, } from '@chakra-ui/react';
+import logo from './../../assets/logo.png';
+import './navbar.css';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -25,16 +27,10 @@ export default function Navbar() {
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-                <Flex h={16} flexDirection={'row-reverse'} alignItems={'center'} justifyContent={'space-around'}>
-                    <IconButton
-                        size={'md'}
-                        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                        aria-label={'Open Menu'}
-                        display={{ md: 'none' }}
-                        onClick={isOpen ? onClose : onOpen}
-                    />
+                <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+                    <Box><img className='logo' src={logo} alt="logo" /></Box>
+
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
@@ -44,6 +40,13 @@ export default function Navbar() {
                             ))}
                         </HStack>
                     </HStack>
+                    <IconButton
+                        size={'md'}
+                        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                        aria-label={'Open Menu'}
+                        display={{ md: 'none' }}
+                        onClick={isOpen ? onClose : onOpen}
+                    />
                 </Flex>
 
                 {isOpen ? (
