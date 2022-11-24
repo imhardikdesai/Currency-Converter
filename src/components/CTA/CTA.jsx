@@ -14,7 +14,7 @@ export default function CTA() {
                     as={Box}
                     textAlign={'center'}
                     spacing={{ base: 8, md: 14 }}
-                    py={{ base: 12, md: 20 }}>
+                    py={{ base: 10, md: 10 }}>
                     <Heading
                         fontWeight={600}
                         fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
