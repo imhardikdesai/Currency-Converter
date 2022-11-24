@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
-import { Box, Flex, HStack, Link, IconButton, useDisclosure, useColorModeValue, Stack, } from '@chakra-ui/react';
+import { Box, Flex, HStack, Link, IconButton, useDisclosure, useColorMode, useColorModeValue, Stack, Button } from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import logo from './../../assets/logo.png';
 import './navbar.css';
-
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 const Links = ['Home', 'About', 'Contact'];
 
@@ -22,6 +21,7 @@ const NavLink = ({ children } = { children: ReactNode }) => (
 );
 
 export default function Navbar() {
+    const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
@@ -39,7 +39,11 @@ export default function Navbar() {
                                 <NavLink key={link}>{link}</NavLink>
                             ))}
                         </HStack>
+                        <Button onClick={toggleColorMode}>
+                            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                        </Button>
                     </HStack>
+
                     <IconButton
                         size={'md'}
                         icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -47,6 +51,7 @@ export default function Navbar() {
                         display={{ md: 'none' }}
                         onClick={isOpen ? onClose : onOpen}
                     />
+
                 </Flex>
 
                 {isOpen ? (
@@ -59,8 +64,6 @@ export default function Navbar() {
                     </Box>
                 ) : null}
             </Box>
-
-            <Box p={4}>Main Content Here</Box>
         </>
     );
 }
