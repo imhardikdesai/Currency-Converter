@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Box, Flex, HStack, Link, IconButton, useDisclosure, useColorMode, useColorModeValue, Stack, Button } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import logo from './../../assets/logo.png';
@@ -6,7 +5,7 @@ import './navbar.css';
 
 const Links = ['Home', 'About', 'Contact'];
 
-const NavLink = ({ children } = { children: ReactNode }) => (
+const NavLink = (link) => (
     <Link
         px={2}
         py={1}
@@ -15,8 +14,9 @@ const NavLink = ({ children } = { children: ReactNode }) => (
             textDecoration: 'none',
             bg: useColorModeValue('gray.200', 'gray.700'),
         }}
-        href={'#'}>
-        {children}
+        href={'#'}
+        key={link.children}>
+        {link.children}
     </Link>
 );
 
