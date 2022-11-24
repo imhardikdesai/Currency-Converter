@@ -1,6 +1,5 @@
 import React from 'react'
-import Form from './components/Form/Form.jsx'
-import { Navbar, CTA } from './components/index.js'
+import { Navbar, CTA, Footer, Form } from './components/index.js'
 
 const App = () => {
     return (
@@ -8,6 +7,7 @@ const App = () => {
             <Navbar />
             <CTA />
             <Form />
+            <Footer />
         </div>
     )
 }
