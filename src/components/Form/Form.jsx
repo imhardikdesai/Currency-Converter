@@ -35,7 +35,7 @@ const Form = () => {
             setCountryRate(priceData.conversion_rates)
         }
         fetchPrice();
-    });
+    },[fromCountry]);
     return (
         <>
             <div className="form-body">
