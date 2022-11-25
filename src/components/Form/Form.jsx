@@ -29,7 +29,8 @@ const Form = () => {
 
     useEffect(() => {
         const fetchPrice = async () => {
-            const baseURL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_API_KEY}/latest/${fromCountry}`;
+            // const baseURL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_API_KEY}/latest/${fromCountry}`;
+            const baseURL = `https://v6.exchangerate-api.com/v6/0a260683f8f2acca05ac3018/latest/${fromCountry}`;
             const data = await fetch(baseURL);
             const priceData = await data.json();
             setCountryRate(priceData.conversion_rates)
