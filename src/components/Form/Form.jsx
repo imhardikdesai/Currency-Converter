@@ -1,10 +1,41 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Stack, InputGroup, Input, InputLeftElement, Select, Box, Text, HStack, WrapItem, Button } from '@chakra-ui/react';
 import './form.css'
-
+import countryData from './../../json/countryData.js'
+import { FcMoneyTransfer } from 'react-icons/fc';
 const Form = () => {
+    const [countryRate, setCountryRate] = useState(null)
     const [price, setPrice] = useState(0);
-    // https://www.amdoren.com/api/currency.php?api_key=zt5tHBGL7wN5tEb3iFxX8dxgew5wvT&from=EUR&to=GBP&amount=50
+    const [amount, setAmount] = useState(null);
+    const [fromCountry, setFromCountry] = useState('USD');
+    const [toCountry, setToCountry] = useState('');
+
+    const setAmountHandler = (e) => {
+        setAmount(e.target.value)
+    }
+
+    const setFromCountryHandler = (e) => {
+        let x = countryData.filter((a) => { if (a.name === e.target.value) { return a } return false });
+        setFromCountry(x[0].abbreviation)
+    }
+
+    const setToCountryHandler = (e) => {
+        let x = countryData.filter((a) => { if (a.name === e.target.value) { return a } return false });
+        setToCountry(x[0].abbreviation)
+    }
+    const convertPrice = () => {
+        setPrice(parseFloat(amount * countryRate[fromCountry] / countryRate[toCountry]))
+    }
+
+    useEffect(() => {
+        const fetchPrice = async () => {
+            const baseURL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_API_KEY}/latest/${fromCountry}`;
+            const data = await fetch(baseURL);
+            const priceData = await data.json();
+            setCountryRate(priceData.conversion_rates)
+        }
+        fetchPrice();
+    });
     return (
         <>
             <div className="form-body">
@@ -16,26 +47,26 @@ const Form = () => {
                                 pointerEvents='none'
                                 color='gray.300'
                                 fontSize='1.2em'
-                                children='$'
+                                children={<FcMoneyTransfer />}
                             />
-                            <Input placeholder='Enter amount' variant={'filled'} />
+                            <Input type={'number'} autoFocus={true} onChange={setAmountHandler} placeholder='Enter amount' variant={'filled'} />
                         </InputGroup>
 
                         <Text mb='5px'>From </Text>
                         <InputGroup size='sm'>
-                            <Select variant={'filled'} placeholder='Select country'>
-                                <option value='option1'>Option 1</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                            <Select disabled={amount === (0 || null || "")} onChange={setFromCountryHandler} variant={'filled'} placeholder='Select country'>
+                                {countryData.map((country, index) => {
+                                    return <option key={index} value={country.name}>{country.name}</option>
+                                })}
                             </Select>
                         </InputGroup>
 
                         <Text mb='5px'>To </Text>
                         <InputGroup size='sm'>
-                            <Select variant={'filled'} placeholder='Select country'>
-                                <option value='option1'>Option 1</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                            <Select disabled={amount === (0 || null || "")} onChange={setToCountryHandler} variant={'filled'} placeholder='Select country'>
+                                {countryData.map((country, index) => {
+                                    return <option key={index} value={country.name}>{country.name}</option>
+                                })}
                             </Select>
                         </InputGroup>
                     </Stack>
@@ -45,13 +76,11 @@ const Form = () => {
                     <HStack mt={'10'} justifyContent="center">
                         <Text fontSize="2xl" fontWeight="600">
                             Exchange Rate <br />
-                            <Text align={'center'} fontSize="5xl" fontWeight="900">
-                                {price ? price : '0.00'}
-                            </Text>
+                            <span style={{ textAlign: 'center', fontWeight: '900', fontSize: '3.5rem' }}>{price ? price.toFixed(4) : '0.00'}</span>
                         </Text>
                     </HStack>
                     <WrapItem>
-                        <Button px={'20'} my={'5'} colorScheme='blue'>Convert</Button>
+                        <Button onClick={convertPrice} px={'20'} my={'5'} colorScheme='blue'>Convert</Button>
                     </WrapItem>
                 </div>
 
