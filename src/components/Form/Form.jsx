@@ -3,6 +3,7 @@ import { Stack, InputGroup, Input, InputLeftElement, Select, Box, Text, HStack, 
 import './form.css'
 import countryData from './../../json/countryData.js'
 import { FcMoneyTransfer } from 'react-icons/fc';
+import { BiReset } from 'react-icons/bi';
 const Form = () => {
     const [countryRate, setCountryRate] = useState(null)
     const [price, setPrice] = useState(0);
@@ -36,21 +37,28 @@ const Form = () => {
             setCountryRate(priceData.conversion_rates)
         }
         fetchPrice();
-    },[fromCountry]);
+    }, [fromCountry]);
     return (
         <>
             <div className="form-body">
 
-                <Box as='form' >
+                <Box as='form'>
                     <Stack spacing={4} py="1.5">
-                        <InputGroup>
+                        <InputGroup alignItems={'center'}>
                             <InputLeftElement
                                 pointerEvents='none'
                                 color='gray.300'
-                                fontSize='1.2em'
+                                fontSize='1.2rem'
                                 children={<FcMoneyTransfer />}
                             />
                             <Input type={'number'} autoFocus={true} onChange={setAmountHandler} placeholder='Enter amount' variant={'filled'} />
+                            {/* <InputRightElement
+                                pointerEvents='none'
+                                color='gray.300'
+                                fontSize='1.2em'
+                                children={<BiReset />}
+                            /> */}
+                            <Button type='reset' px={'8px'} py={'12px'} fontSize={'1.3rem'} mx={'1'} colorScheme='teal' size='md'><BiReset /></Button>
                         </InputGroup>
 
                         <Text mb='5px'>From </Text>
