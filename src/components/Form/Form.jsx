@@ -25,7 +25,7 @@ const Form = () => {
         setToCountry(x[0].abbreviation)
     }
     const convertPrice = () => {
-        setPrice(parseFloat(amount * countryRate[fromCountry] / countryRate[toCountry]))
+        setPrice(parseFloat(amount * countryRate[toCountry] / countryRate[fromCountry]))
     }
 
     useEffect(() => {
