@@ -1,18 +1,29 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useRef, useEffect } from 'react'
 import { Stack, InputGroup, Input, InputLeftElement, Select, Box, Text, HStack, WrapItem, Button } from '@chakra-ui/react';
 import './form.css'
 import countryData from './../../json/countryData.js'
 import { FcMoneyTransfer } from 'react-icons/fc';
 import { BiReset } from 'react-icons/bi';
 const Form = () => {
+    const ref = useRef(null);
     const [countryRate, setCountryRate] = useState(null)
     const [price, setPrice] = useState(0);
     const [amount, setAmount] = useState(null);
     const [fromCountry, setFromCountry] = useState('USD');
     const [toCountry, setToCountry] = useState('');
-
+    const resetHandler = () => {
+        setAmount(null)
+        setPrice(0)
+        setFromCountry('USD')
+        setToCountry('')
+    }
     const setAmountHandler = (e) => {
+        if (e.target.value > 99999999) {
+            alert('Number you have entered is too big')
+            ref.current.click()
+        }
         setAmount(e.target.value)
+
     }
 
     const setFromCountryHandler = (e) => {
@@ -52,13 +63,7 @@ const Form = () => {
                                 children={<FcMoneyTransfer />}
                             />
                             <Input type={'number'} autoFocus={true} onChange={setAmountHandler} placeholder='Enter amount' variant={'filled'} />
-                            {/* <InputRightElement
-                                pointerEvents='none'
-                                color='gray.300'
-                                fontSize='1.2em'
-                                children={<BiReset />}
-                            /> */}
-                            <Button type='reset' px={'8px'} py={'12px'} fontSize={'1.3rem'} mx={'1'} colorScheme='teal' size='md'><BiReset /></Button>
+                            <Button type='reset' px={'8px'} py={'12px'} fontSize={'1.3rem'} mx={'1'} ref={ref} onClick={resetHandler} colorScheme='teal' size='md'><BiReset /></Button>
                         </InputGroup>
 
                         <Text mb='5px'>From </Text>
@@ -85,7 +90,7 @@ const Form = () => {
                     <HStack mt={'10'} justifyContent="center">
                         <Text fontSize="2xl" fontWeight="600">
                             Exchange Rate <br />
-                            <span style={{ textAlign: 'center', fontWeight: '900', fontSize: '3.5rem' }}>{price ? price.toFixed(4) : '0.00'}</span>
+                            <span style={{ textAlign: 'center', fontWeight: '900', fontSize: '3.5rem' }}>{price ? price.toFixed(2) : '0.00'}</span>
                         </Text>
                     </HStack>
                     <WrapItem>
