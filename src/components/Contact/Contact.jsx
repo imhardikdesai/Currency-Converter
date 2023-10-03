@@ -11,7 +11,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Text,
   Stack,
   Textarea,
   Tooltip,
