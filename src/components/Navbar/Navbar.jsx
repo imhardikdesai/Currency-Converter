@@ -1,7 +1,8 @@
-import { Box, Flex, HStack, Link, IconButton, useDisclosure, useColorMode, useColorModeValue, Stack, Button } from '@chakra-ui/react';
+import { Box, Flex, HStack, Link as ChakraLink, IconButton, useDisclosure, useColorMode, useColorModeValue, Stack, Button } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import logo from './../../assets/logo.png';
 import './navbar.css';
+import { Link } from 'react-router-dom';
 
 const Links = ['Home', 'About', 'Contact'];
 
@@ -14,7 +15,7 @@ const NavLink = (link) => (
             textDecoration: 'none',
             bg: useColorModeValue('gray.200', 'gray.700'),
         }}
-        href={'#'}
+        to={`/${link.children}`}
         key={link.children}>
         {link.children}
     </Link>
@@ -36,7 +37,7 @@ export default function Navbar() {
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
+                                <NavLink key={link} link>{link}</NavLink>
                             ))}
                         </HStack>
                         <Button onClick={toggleColorMode}>
