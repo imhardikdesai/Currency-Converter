@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, CTA, Footer, Form } from './components/index.js'
+import { Navbar, CTA, Footer, Form,About } from './components/index.js'
 import {
     ChakraProvider
 } from "@chakra-ui/react";
@@ -32,6 +32,7 @@ const App = () => {
                         <Route path='/home' element={<HomeLayout />} />
                         <Route path='/' element={<HomeLayout />} />
                         <Route path='/contact' element={<Contact />} />
+                        <Route path='/about' element={<About />} />
                     </Routes>
                     <Footer />
                 </Router>
