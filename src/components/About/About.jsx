@@ -1,4 +1,4 @@
-import { Avatar, Box, chakra, Flex, Icon, SimpleGrid, useColorModeValue, } from '@chakra-ui/react';
+import { Avatar, Box, chakra, Text, Heading, Flex, Icon, SimpleGrid, useColorModeValue, Container, Stack } from '@chakra-ui/react';
 
 const testimonials = [
     {
@@ -24,7 +24,7 @@ function TestimonialCard(props) {
             p={10}
             justifyContent={'space-between'}
             position={'relative'}
-            bg={useColorModeValue('white', 'gray.800')}
+            bg={useColorModeValue('white', 'gray.700')}
             _after={{
                 content: '""',
                 position: 'absolute',
@@ -54,14 +54,14 @@ function TestimonialCard(props) {
                 textAlign={'left'}
                 justifyContent={'space-between'}>
                 <chakra.p
-                    color={'gray.700'}
+                    color={'gray.400'}
                     fontFamily={'Inter'}
                     fontWeight={'medium'}
                     fontSize={'15px'}
                     pb={4}>
                     {content}
                 </chakra.p>
-                <chakra.p fontFamily={'Work Sans'} color={'gray.700'} fontWeight={'bold'} fontSize={14}>
+                <chakra.p fontFamily={'Work Sans'} color={'gray.400'} fontWeight={'bold'} fontSize={14}>
                     {name}
                     <chakra.span
                         fontFamily={'Inter'}
@@ -91,25 +91,26 @@ export default function About() {
             justifyContent={'center'}
             direction={'column'}
             width={'full'}>
-            <Box width={{ base: 'full', sm: 'lg', lg: 'xl' }} margin={'auto'}>
-              
-                <chakra.h1
-                    py={5}
-                    fontSize={48}
-                    fontFamily={'Work Sans'}
-                    fontWeight={'bold'}
-                    color={useColorModeValue('gray.300', 'gray.50')}>
-                    Currency Converter 
-                </chakra.h1>
-                <chakra.h2
-                    margin={'auto'}
-                    width={'70%'}
-                    fontFamily={'Inter'}
-                    fontWeight={'medium'}
-                    color={useColorModeValue('gray.500', 'gray.400')}>
-                  Stay  Updated with latest Currency Rates on Our Exciting Website!
-                </chakra.h2>
-            </Box>
+          <Container maxW={'3xl'}>
+                <Stack
+                    as={Box}
+                    textAlign={'center'}
+                    spacing={{ base: 8, md: 14 }}
+                    py={{ base: 10, md: 10 }}>
+                    <Heading
+                        fontWeight={600}
+                        fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                        lineHeight={'100%'}>
+                        <Text as={'span'} color={'#3967F6'}>
+                            Currency Converter
+                        </Text>
+                    </Heading>
+                    <Text color={'gray.500'}>
+                    Stay Updated with latest Currency Rates on Our Exciting Website!
+                    </Text>
+
+                </Stack>
+            </Container>
             <SimpleGrid
                 columns={{ base: 1, xl: 1 }}
                 spacing={'20'}
