@@ -11,7 +11,12 @@ export default function Footer() {
         <Box
             mt={'4'}
             bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            color={useColorModeValue('gray.700', 'gray.200')}
+            style={{
+                position: 'fixed',
+                bottom: '0',
+                width: '100%',
+            }}>
             <Container
                 as={Stack}
                 maxW={'6xl'}
