@@ -25,17 +25,26 @@ const App = () => {
     return (
         <ChakraProvider>
 
-            <div className="App">
+            <div className="App" style={{
+                display:'flex',
+                flexDirection:'column',
+                justifyContent:'space-between',
+                height:'100vh',
+                width:'100%'
+            }}>
                 <Router>
                     <Navbar />
+
                     <Routes>
                         <Route path='/home' element={<HomeLayout />} />
                         <Route path='/' element={<HomeLayout />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/about' element={<About />} />
                     </Routes>
-                    <Footer />
+                   
+                   
                 </Router>
+                <Footer />
             </div>
         </ChakraProvider>
     )
