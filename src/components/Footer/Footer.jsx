@@ -9,9 +9,15 @@ import {
 export default function Footer() {
     return (
         <Box
+     
             mt={'4'}
             bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            color={useColorModeValue('gray.700', 'gray.200')}
+            style={{
+                position: 'relative',
+                bottom: '0',
+                width: '100%',
+            }}>
             <Container
                 as={Stack}
                 maxW={'6xl'}
