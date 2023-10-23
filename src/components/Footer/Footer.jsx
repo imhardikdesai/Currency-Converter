@@ -7,6 +7,8 @@ import {
 } from '@chakra-ui/react';
 
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
+
     return (
         <Box
      
@@ -26,7 +28,7 @@ export default function Footer() {
                 spacing={4}
                 justify={{ base: 'center', md: 'center' }}
                 align={{ base: 'center', md: 'center' }}>
-                <Text>© 2022 Currency Converter. All rights reserved</Text>
+                <Text>© {currentYear} Currency Converter. All rights reserved</Text>
             </Container>
         </Box>
     );
