@@ -41,20 +41,30 @@ const Form = () => {
   };
 
   const setFromCountryHandler = (e) => {
+    const fromValue = e.target.value;
+    if(!fromValue){
+      setFromCountry(null);
+      return;
+    }
     setFromCountry(e.target.value);
   };
 
   const setToCountryHandler = (e) => {
     const toValue = e.target.value;
-    const [country] = countryData.filter(country => country.abbreviation===toValue)
+    if(!toValue){
+      setToCountry(null);
+      setSymbol(null)
+      return;
+    }
+    const [country] = countryData.filter(
+      (country) => country.abbreviation === toValue
+    );
     const toSymbol = country.symbol;
-    setSymbol(toSymbol)
+    setSymbol(toSymbol);
     setToCountry(e.target.value);
   };
   const convertPrice = useCallback(() => {
-    setPrice(
-      (amount * countryRate[toCountry]) / countryRate[fromCountry]
-    );
+    setPrice((amount * countryRate[toCountry]) / countryRate[fromCountry]);
   }, [amount, toCountry, fromCountry, countryRate]);
 
   useEffect(() => {
@@ -65,14 +75,18 @@ const Form = () => {
       const priceData = await data.json();
       setCountryRate(priceData.conversion_rates);
     };
-    fetchPrice();
+    if(fromCountry){
+      fetchPrice();
+    }
   }, [fromCountry]);
 
   useEffect(() => {
-    if(amount && toCountry && fromCountry){
-      convertPrice()
+    if (amount && toCountry && fromCountry) {
+      convertPrice();
+    } else {
+      setPrice(0);
     }
-  }, [amount, convertPrice, toCountry, fromCountry])
+  }, [amount, convertPrice, toCountry, fromCountry]);
   return (
     <>
       <div className="form-body">
