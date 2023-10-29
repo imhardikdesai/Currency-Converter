@@ -8,13 +8,14 @@ import {
   Box,
   Text,
   HStack,
-  WrapItem,
   Button,
 } from "@chakra-ui/react";
 import "./form.css";
 import countryData from "./../../json/countryData.js";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { BiReset } from "react-icons/bi";
+import { useCallback } from "react";
+
 const Form = () => {
   const ref = useRef(null);
   const [countryRate, setCountryRate] = useState(null);
@@ -40,30 +41,21 @@ const Form = () => {
   };
 
   const setFromCountryHandler = (e) => {
-    let x = countryData.filter((a) => {
-      if (a.name === e.target.value) {
-        return a;
-      }
-      return false;
-    });
-    setFromCountry(x[0].abbreviation);
+    setFromCountry(e.target.value);
   };
 
   const setToCountryHandler = (e) => {
-    let x = countryData.filter((a) => {
-      if (a.name === e.target.value) {
-        setSymbol(a.symbol);
-        return a;
-      }
-      return false;
-    });
-    setToCountry(x[0].abbreviation);
+    const toValue = e.target.value;
+    const [country] = countryData.filter(country => country.abbreviation===toValue)
+    const toSymbol = country.symbol;
+    setSymbol(toSymbol)
+    setToCountry(e.target.value);
   };
-  const convertPrice = () => {
+  const convertPrice = useCallback(() => {
     setPrice(
-      parseFloat((amount * countryRate[toCountry]) / countryRate[fromCountry])
+      (amount * countryRate[toCountry]) / countryRate[fromCountry]
     );
-  };
+  }, [amount, toCountry, fromCountry, countryRate]);
 
   useEffect(() => {
     const fetchPrice = async () => {
@@ -75,6 +67,12 @@ const Form = () => {
     };
     fetchPrice();
   }, [fromCountry]);
+
+  useEffect(() => {
+    if(amount && toCountry && fromCountry){
+      convertPrice()
+    }
+  }, [amount, convertPrice, toCountry, fromCountry])
   return (
     <>
       <div className="form-body">
@@ -119,7 +117,7 @@ const Form = () => {
               >
                 {countryData.map((country, index) => {
                   return (
-                    <option key={index} value={country.name}>
+                    <option key={index} value={country.abbreviation}>
                       {country.name}
                     </option>
                   );
@@ -137,7 +135,7 @@ const Form = () => {
               >
                 {countryData.map((country, index) => {
                   return (
-                    <option key={index} value={country.name}>
+                    <option key={index} value={country.abbreviation}>
                       {country.name}
                     </option>
                   );
@@ -148,7 +146,7 @@ const Form = () => {
         </Box>
 
         <div className="bottom">
-          <HStack mt={"10"} justifyContent="center">
+          <HStack mb={"5"} mt={"10"} justifyContent="center">
             <Text fontSize="2xl" fontWeight="600">
               Exchange Rate <br />
               <span
@@ -167,16 +165,6 @@ const Form = () => {
               </span>
             </Text>
           </HStack>
-          <WrapItem>
-            <Button
-              onClick={convertPrice}
-              px={"20"}
-              my={"5"}
-              colorScheme="blue"
-            >
-              Convert
-            </Button>
-          </WrapItem>
         </div>
       </div>
     </>
