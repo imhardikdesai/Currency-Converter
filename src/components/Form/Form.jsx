@@ -111,7 +111,7 @@ const Form = () => {
                 px={"8px"}
                 py={"12px"}
                 fontSize={"1.3rem"}
-                mx={"1"}
+                ml={"1"}
                 ref={ref}
                 onClick={resetHandler}
                 colorScheme="teal"
@@ -128,6 +128,8 @@ const Form = () => {
                 onChange={setFromCountryHandler}
                 variant={"filled"}
                 placeholder="Select country"
+                size="md"
+                rounded={"md"}
               >
                 {countryData.map((country, index) => {
                   return (
@@ -146,6 +148,8 @@ const Form = () => {
                 onChange={setToCountryHandler}
                 variant={"filled"}
                 placeholder="Select country"
+                size="md"
+                rounded={"md"}
               >
                 {countryData.map((country, index) => {
                   return (
