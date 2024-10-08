@@ -127,7 +127,7 @@ const Form = () => {
                 disabled={amount === (0 || null || "")}
                 onChange={setFromCountryHandler}
                 variant={"filled"}
-                placeholder="Select country"
+                placeholder="Select currency"
                 size="md"
                 rounded={"md"}
               >
@@ -147,7 +147,7 @@ const Form = () => {
                 disabled={amount === (0 || null || "")}
                 onChange={setToCountryHandler}
                 variant={"filled"}
-                placeholder="Select country"
+                placeholder="Select currency"
                 size="md"
                 rounded={"md"}
               >
